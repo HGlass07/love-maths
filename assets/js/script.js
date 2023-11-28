@@ -1,9 +1,9 @@
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     let buttons = document.getElementsByTagName("button");
 
     for (let button of buttons) {
-        button.addEventListener("click", function() {
+        button.addEventListener("click", function () {
             if (this.getAttribute("data-type") === "submit") {
                 checkAnswer();
             } else {
@@ -11,24 +11,24 @@ document.addEventListener("DOMContentLoaded", function() {
                 runGame(gameType);
 
             }
-        })
+        });
     }
 
-    runGame("addition")
-})
+    runGame("addition");
+});
 
 
 function runGame(gameType) {
     let num1 = Math.floor(Math.random() * 25) + 1;
     let num2 = Math.floor(Math.random() * 25) + 1;
 
-    if(gameType === "addition") {
+    if (gameType === "addition") {
         displayAdditionQuestion(num1, num2);
     } else {
         alert(`Unknown game type: ${gameType}`);
-        throw `Unknown game type: ${gametype}. Aborting!` 
+        throw `Unknown game type: ${gametype}. Aborting!`;
     }
- }
+}
 
 
 function checkAnswer() {
@@ -38,8 +38,10 @@ function checkAnswer() {
 
     if (isCorrect) {
         alert("Hey! you got it right!");
+        incrementScore();
     } else {
         alert(`Awwwwwwwwwww....you got it wrong! you answered ${userAnswer}. The correct answer was ${calculatedAnswer[0]}`);
+        incrementWrongAnswer();
     }
 
     runGame(calculatedAnswer[1]);
@@ -57,18 +59,22 @@ function calculateCorrectAnswer() {
     if (operator === "+") {
         return [operand1 + operand2, "addition"];
     } else {
-        alert(`Unimplemented operator ${operator}`)
+        alert(`Unimplemented operator ${operator}`);
         throw `Unimplemented operator ${operator}. Aborting!`;
     }
 }
 
 
 function incrementScore() {
+    let oldScore = parseInt(document.getElementById("score").innerText);
+    document.getElementById("score").innerText = ++oldScore;
 
 }
 
 
 function incrementWrongAnswer() {
+    let oldScore = parseInt(document.getElementById("incorrect").innerText);
+    document.getElementById("incorrect").innerText = ++oldScore;
 
 }
 
